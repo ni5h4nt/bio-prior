@@ -17,36 +17,61 @@
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1" on:click|stopPropagation on:keydown|stopPropagation>
       <button class="close" on:click={close} aria-label="Close">×</button>
 
-      <h2 id="modal-title">About bio-prior</h2>
+      <h2 id="modal-title">Understanding the Autistic Experience</h2>
 
+      <div class="intro">
+        <p>
+          This simulation helps neurotypical people understand how some autistic individuals
+          experience the world — not as a "disorder," but as a different way of processing information.
+        </p>
+      </div>
+
+      <h3>🧠 The Science: Predictive Coding</h3>
       <p>
-        <strong>bio-prior</strong> is a simulation that demonstrates how
-        <em>precision weighting</em> affects sensory processing.
+        Your brain constantly predicts what it expects to see, hear, and feel. When reality
+        matches the prediction, the signal is filtered out. When it doesn't match, the
+        difference (called <em>prediction error</em>) gets amplified.
       </p>
 
-      <h3>The HIPPE Theory</h3>
+      <h3>⚡ The HIPPE Theory</h3>
       <p>
-        HIPPE (High Individual Posterior Predictive Error) suggests that some
-        neurodivergent individuals process sensory input with higher "gain"—
-        every detail is amplified, making it harder to filter background noise.
+        Research suggests that many autistic brains assign higher <em>precision</em> to
+        incoming sensory signals. This means:
       </p>
-
-      <h3>What You're Seeing</h3>
       <ul>
-        <li><strong>Sensory Detail slider:</strong> Adjusts how much weight the brain gives to incoming signals</li>
-        <li><strong>Processing Load:</strong> Shows computational cost—high precision exhausts resources</li>
-        <li><strong>Regulation Strategies:</strong> Demonstrates how self-soothing behaviors actually help</li>
+        <li>Every detail gets amplified — the clock ticking, the fabric texture, the fluorescent hum</li>
+        <li>The brain works harder to process all this information</li>
+        <li>What feels "normal" to neurotypical people can feel overwhelming</li>
       </ul>
 
-      <h3>The Message</h3>
+      <h3>🎧 Why "Stimming" Helps</h3>
       <p>
-        When a child covers their ears, rocks, or leaves the room—they're not
-        misbehaving. Their system is overloaded, and these are <em>solutions</em>,
-        not problems.
+        When the brain is overwhelmed, self-regulation strategies (often called "stimming")
+        aren't misbehavior — they're the brain protecting itself:
+      </p>
+      <ul>
+        <li><strong>Reduce Input:</strong> Headphones, dimmed lights, or closing eyes reduces incoming signals</li>
+        <li><strong>Rhythmic Motion:</strong> Rocking or tapping creates predictable patterns the brain can handle</li>
+        <li><strong>Taking a Break:</strong> Leaving the overwhelming environment lets the system reset</li>
+      </ul>
+
+      <div class="key-message">
+        <span class="quote">"</span>
+        <p>
+          When a child covers their ears, rocks, or needs to leave the room — they're not
+          misbehaving. Their nervous system is overloaded, and these are <strong>solutions</strong>,
+          not problems.
+        </p>
+      </div>
+
+      <h3>📚 Learn More</h3>
+      <p>
+        This simulation is based on the <em>High Individual Posterior Predictive Error</em> (HIPPE)
+        theory of autism. Search for "predictive coding autism" to explore the research.
       </p>
 
       <p class="footer">
-        Built with care by Nishant Tyagi
+        Built with care to foster understanding
       </p>
     </div>
   </div>
@@ -62,14 +87,15 @@
     justify-content: center;
     z-index: 100;
     backdrop-filter: blur(4px);
+    padding: 1rem;
   }
 
   .modal {
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     color: #1a1a2e;
-    padding: 2.5rem;
+    padding: 2rem;
     border-radius: 16px;
-    max-width: 520px;
+    max-width: 560px;
     max-height: 85vh;
     overflow-y: auto;
     position: relative;
@@ -103,35 +129,40 @@
   h2 {
     margin-top: 0;
     color: #1a1a2e;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
+    padding-right: 2rem;
+  }
+
+  .intro {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #bfdbfe;
+  }
+
+  .intro p {
+    margin: 0;
+    color: #1e40af;
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 
   h3 {
-    margin-top: 1.75rem;
-    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
     color: #2d3748;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  h3::before {
-    content: '';
-    display: inline-block;
-    width: 4px;
-    height: 1em;
-    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
-    border-radius: 2px;
   }
 
   p {
     color: #4a5568;
     line-height: 1.7;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
   }
 
   strong {
@@ -146,25 +177,57 @@
 
   ul {
     padding-left: 1.25rem;
-    margin: 0;
+    margin: 0.5rem 0;
   }
 
   li {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     color: #4a5568;
-    line-height: 1.6;
+    line-height: 1.5;
+    font-size: 0.9rem;
   }
 
   li strong {
     color: #2d3748;
   }
 
+  .key-message {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    position: relative;
+    border: 1px solid #fbbf24;
+  }
+
+  .key-message .quote {
+    position: absolute;
+    top: -0.25rem;
+    left: 0.75rem;
+    font-size: 3rem;
+    color: #f59e0b;
+    opacity: 0.5;
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+
+  .key-message p {
+    margin: 0;
+    color: #92400e;
+    font-size: 0.95rem;
+    padding-left: 1rem;
+  }
+
+  .key-message strong {
+    color: #78350f;
+  }
+
   .footer {
-    margin-top: 2rem;
-    padding-top: 1.25rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
     border-top: 1px solid #e2e8f0;
-    font-size: 0.875rem;
-    color: #718096;
+    font-size: 0.8rem;
+    color: #94a3b8;
     text-align: center;
   }
 </style>

@@ -8,7 +8,10 @@ test.describe('LoadGauge', () => {
 
   test('shows percentage value', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByText(/%/)).toBeVisible();
+    // Use the specific testId to avoid matching PrecisionSlider's % too
+    await expect(page.getByTestId('load-value')).toBeVisible();
+    const text = await page.getByTestId('load-value').textContent();
+    expect(text).toMatch(/\d+%?/);
   });
 
   test('gauge updates when slider changes', async ({ page }) => {

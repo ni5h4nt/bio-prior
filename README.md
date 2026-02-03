@@ -1,226 +1,188 @@
-# bio-prior
+# See the World Differently
 
-**A Predictive Coding Simulation for Understanding Neurodivergent Sensory Processing**
+**An interactive simulation that helps parents, teachers, and allies understand how autistic individuals experience sensory processing.**
 
-*Built by Nishant Tyagi*
-
----
-
-## The Origin
-
-`bio-prior` began as a personal tool to help my family and friends visualize a complex reality: **what it feels like to process the world through a neurodivergent lens.** As a parent of a child on the Autism spectrum, I wanted to move past behavioral descriptions and show the "system architecture" of sensory overload.
-
-This project translates the **HIPPE (High Individual Posterior Predictive Error)** theory into a functional engineering simulation. It demonstrates how "Precision Weighting"—the gain assigned to sensory prediction errors—governs the stability, metabolic cost, and perceptual fidelity of a biological world model.
+🌐 **[Try the Live Demo](#quick-start)** • 📖 **[Learn the Science](#the-science)** • 🛠️ **[Development](#development)**
 
 ---
 
-## The Core Insight
+## What This Is
 
-When a child covers their ears, rocks, or leaves the room—they're not misbehaving. **These are solutions, not problems.** Their sensory system is running at maximum gain, processing every detail the rest of us filter out. Self-regulation strategies are how they manage the computational overload.
+**bio-prior** is an educational tool that lets you experience — not just read about — how the autistic brain processes sensory information differently.
 
----
+<p align="center">
+  <strong>Drag the slider to the right → Watch the world become overwhelming</strong>
+</p>
 
-## How It Works
-
-```
-                    ┌─────────────────────────────────────┐
-                    │         bio-prior Engine            │
-                    ├─────────────────────────────────────┤
-                    │                                     │
-    Sensory     ┌───▼───┐    ┌───────────┐    ┌────────┐ │
-    Input   ───►│ World │───►│ Precision │───►│ Output │ │
-                │ Model │    │ Weighting │    │ Effect │ │
-                └───────┘    └─────┬─────┘    └────────┘ │
-                                   │                     │
-                         ┌─────────▼─────────┐           │
-                         │   The "Volume"    │           │
-                         │      Knob         │           │
-                         └───────────────────┘           │
-                    └─────────────────────────────────────┘
-
-Low Precision (Neurotypical):  Filter noise, stay calm, 5% energy
-High Precision (ASD Mode):     Process ALL details, 90% energy → Overload
-```
-
-### The Precision Curve
-
-The slider uses a **cubic mapping** to simulate how precision affects processing:
-
-| Slider Range | Mode | Effect |
-|-------------|------|--------|
-| 0-70% | Neurotypical | Stable, filtered, low energy cost |
-| 70-90% | Elevated | Noticeably reactive, fatigue builds |
-| 90-100% | Overload | Rapid destabilization, system overwhelm |
+When a child covers their ears, rocks, or needs to leave the room — they're not misbehaving. **These are solutions, not problems.** Their sensory system is running at maximum gain, processing every detail the rest of us filter out.
 
 ---
 
-## Architecture
+## Who This Is For
 
-```
-bio-prior/
-├── rust-core/              # WASM inference engine
-│   ├── src/
-│   │   ├── lib.rs          # Entry point, WASM exports
-│   │   ├── precision.rs    # Slider-to-precision mapping
-│   │   ├── reconstruction.rs # Visual effects pipeline
-│   │   └── regulation.rs   # Self-regulation strategies
-│   └── pkg/                # Compiled WASM output
-│
-├── frontend/               # Svelte UI (shared web + desktop)
-│   ├── src/
-│   │   ├── App.svelte      # Main application
-│   │   └── lib/
-│   │       ├── components/
-│   │       │   ├── PrecisionSlider.svelte
-│   │       │   ├── LoadGauge.svelte
-│   │       │   ├── RegulationPanel.svelte
-│   │       │   ├── VideoCanvas.svelte
-│   │       │   └── AboutModal.svelte
-│   │       └── wasm.ts     # TypeScript WASM bindings
-│   ├── e2e/                # Playwright E2E tests
-│   └── src-tauri/          # Tauri desktop wrapper
-│
-└── docs/plans/             # Design documentation
-```
-
-### Why This Stack?
-
-| Layer | Technology | Rationale |
-|-------|------------|-----------|
-| **Inference Core** | Rust + WASM | Deterministic timing, no GC jitter, ~22KB compiled |
-| **Frontend** | Svelte 5 | Minimal bundle, reactive without virtual DOM |
-| **Desktop** | Tauri v2 | Native performance, 10x smaller than Electron |
-| **Testing** | Playwright | Real browser testing with accessibility audits |
+| Audience | Why Use This |
+|----------|--------------|
+| **Parents** | Understand what your child experiences when they're overwhelmed |
+| **Teachers** | Recognize sensory overload before it becomes a crisis |
+| **Therapists** | Explain precision weighting to families visually |
+| **Allies** | Build genuine empathy through experience, not just facts |
 
 ---
 
-## Features
+## The Experience
 
-### Sensory Detail Slider
-Adjusts precision weighting from calm (0%) to overload (100%). The cubic curve means small movements at low values are stable, while the high end escalates rapidly.
+### Starting Point: Neurotypical Mode (0-70%)
+The simulation begins here. Background noise fades away. The brain efficiently filters out unimportant details. This is how most people experience a classroom, grocery store, or birthday party.
 
-### Processing Load Gauge
-Visualizes computational cost in real-time. Watch the CPU metric spike as precision increases—this is why overload leads to exhaustion.
+### Heightened Awareness (70-90%)
+As you increase the slider, notice how:
+- Visual noise begins to appear
+- Every detail demands attention
+- The "Processing Load" meter climbs
 
-### Regulation Strategies
-Three evidence-based calming approaches appear when overload begins:
+### Sensory Overload (90-100%)
+At maximum precision:
+- The display shakes (visual overstimulation)
+- Processing load becomes critical
+- **Self-regulation options appear** — these represent the strategies autistic individuals use to cope
 
-| Strategy | What It Does | Real-World Example |
-|----------|-------------|-------------------|
-| **Reduce Input** | Dims stimulation | Covering ears, closing eyes |
-| **Rhythmic Pattern** | Adds predictability | Rocking, humming, stimming |
-| **Take a Break** | Gradual fade to calm | Leaving the room, quiet time |
+---
 
-### About Modal
-Educational overlay explaining HIPPE theory for parents and educators.
+## The Science
+
+### Predictive Coding Basics
+
+Your brain doesn't passively receive sensory data. Instead, it constantly *predicts* what it expects to see, hear, and feel. When reality matches the prediction, the signal is filtered out. When it doesn't match, the difference (called **prediction error**) gets amplified.
+
+### The HIPPE Theory
+
+Research suggests that many autistic brains assign higher **precision** (or "gain") to incoming sensory signals. This means:
+
+- Every detail gets treated as important — the clock ticking, fabric textures, fluorescent hum
+- The brain works overtime to process all this information
+- What feels "normal" to neurotypical people can feel overwhelming
+
+This is called **High Individual Posterior Predictive Error (HIPPE)**.
+
+### Why "Stimming" Helps
+
+Self-regulation strategies (often called "stimming") aren't misbehavior — they're the brain protecting itself:
+
+| Strategy | What It Does | Real-World Examples |
+|----------|-------------|---------------------|
+| **Reduce Input** | Lowers incoming signals | Headphones, dimmed lights, closing eyes |
+| **Rhythmic Motion** | Creates predictable patterns | Rocking, tapping, humming |
+| **Taking a Break** | Lets the system reset | Leaving the room, quiet time |
 
 ---
 
 ## Quick Start
 
-### Prerequisites
+### Try It Now (Web)
 
-- [Rust](https://rustup.rs/) (for building WASM)
+**Prerequisites:**
+- [Rust](https://rustup.rs/)
 - [Node.js 18+](https://nodejs.org/)
 - [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)
 
-### 1. Build the Rust Engine
-
 ```bash
-cd rust-core
-./build-wasm.sh
-```
+# 1. Build the Rust engine
+cd rust-core && ./build-wasm.sh
 
-This compiles the inference core to WebAssembly (~22KB).
+# 2. Install dependencies
+cd ../frontend && npm install
 
-### 2. Install Frontend Dependencies
-
-```bash
-cd frontend
-npm install
-```
-
-### 3. Run Development Server
-
-```bash
+# 3. Start development server
 npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-### 4. Run Tests
+### Desktop App
+
+For a native experience using Tauri:
+
+```bash
+cd frontend && npm run tauri dev
+```
+
+---
+
+## Development
+
+### Architecture
+
+```
+bio-prior/
+├── rust-core/              # WASM inference engine (22KB)
+│   └── src/
+│       ├── precision.rs    # Slider-to-precision cubic curve
+│       ├── reconstruction.rs # Visual effects pipeline
+│       └── regulation.rs   # Self-regulation strategies
+│
+├── frontend/               # Svelte 5 UI
+│   ├── src/
+│   │   ├── App.svelte      # Main application
+│   │   └── lib/components/ # UI components
+│   └── e2e/                # Playwright tests
+│
+└── docs/plans/             # Design documentation
+```
+
+### Tech Stack
+
+| Layer | Technology | Why |
+|-------|------------|-----|
+| **Core Engine** | Rust + WASM | Deterministic timing, no GC jitter |
+| **Frontend** | Svelte 5 | Reactive, minimal bundle size |
+| **Desktop** | Tauri v2 | Native performance, small footprint |
+| **Testing** | Playwright | Real browser E2E tests |
+
+### Running Tests
 
 ```bash
 # Rust unit tests (17 tests)
 cd rust-core && cargo test
 
 # Playwright E2E tests (14 tests)
-cd frontend && npx playwright test
+cd frontend && npm run test:e2e
 ```
 
----
-
-## Desktop App (Tauri)
-
-For a native desktop experience:
-
-```bash
-cd frontend
-npm run tauri dev
-```
-
-**Note:** Requires system dependencies for your platform:
-- **Linux:** `libgtk-3-dev libwebkit2gtk-4.0-dev`
-- **macOS:** Xcode command line tools
-- **Windows:** WebView2
-
-Build for distribution:
-
-```bash
-npm run tauri build
-```
-
----
-
-## Performance
+### Performance
 
 | Metric | Target | Actual |
 |--------|--------|--------|
 | Slider latency | <50ms | ~10ms |
-| Frame rate | 30fps | 60fps capable |
-| WASM load time | <2s | ~100ms |
 | Bundle size | <500KB | ~74KB |
+| WASM load | <2s | ~100ms |
 
 ---
 
-## Test Coverage
+## Terminology Note
 
-| Suite | Tests | Coverage |
-|-------|-------|----------|
-| Rust precision | 7 | Property-based + determinism |
-| Rust reconstruction | 4 | Effect ranges, frame integrity |
-| Rust regulation | 6 | Strategy behavior, time evolution |
-| Playwright E2E | 14 | Full user flows, accessibility |
+This project uses "autistic" and "autism" rather than only clinical terms like "ASD" (Autism Spectrum Disorder). Many in the autistic community prefer identity-first language. The tool aims to foster understanding, not pathologize.
 
 ---
 
-## Future Roadmap (v2+)
+## Roadmap
 
-- [ ] Python/Streamlit analysis dashboard for researchers
-- [ ] Additional scenes (grocery store, playground)
+- [ ] Video integration with real classroom scenes
+- [ ] Additional scenarios (grocery store, playground)
 - [ ] More regulation strategies (deep pressure, focus object)
 - [ ] Session recording for educators
-- [ ] Research-grade metrics export
+- [ ] Research export tools
 
 ---
 
 ## The Message
 
-This project exists to build empathy through engineering. When you see someone struggling with sensory overload, remember: **their system is working exactly as designed—just at higher gain.** The behaviors we call "problems" are often the most effective solutions available.
+> *When you see someone struggling with sensory overload, remember: their system is working exactly as designed — just at higher gain. The behaviors we call "problems" are often the most effective solutions available.*
 
 ---
 
 *Dedicated to my son, and to every parent trying to see the world through their child's eyes.*
+
+Built with care by [Nishant Tyagi](https://github.com/ni5h4nt)
 
 ---
 

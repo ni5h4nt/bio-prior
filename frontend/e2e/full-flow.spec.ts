@@ -7,11 +7,11 @@ test.describe('Full User Flow', () => {
     // 1. Start calm
     const slider = page.getByRole('slider', { name: /sensory detail/i });
     await expect(slider).toHaveValue('20');
-    await expect(page.getByText(/regulation strategies/i)).not.toBeVisible();
+    await expect(page.getByText(/system overwhelmed/i)).not.toBeVisible();
 
     // 2. Increase to overload
     await slider.fill('85');
-    await expect(page.getByText(/regulation strategies/i)).toBeVisible();
+    await expect(page.getByText(/system overwhelmed/i)).toBeVisible();
 
     // 3. Verify high CPU load (with WASM cubic scaling: 85% slider -> ~44% load)
     const loadValue = await page.getByTestId('load-value').textContent();
@@ -28,7 +28,7 @@ test.describe('Full User Flow', () => {
 
     // 6. Return to calm
     await slider.fill('20');
-    await expect(page.getByText(/regulation strategies/i)).not.toBeVisible();
+    await expect(page.getByText(/system overwhelmed/i)).not.toBeVisible();
   });
 
   test('page has no accessibility violations', async ({ page }) => {

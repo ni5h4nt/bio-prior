@@ -1,17 +1,32 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('VideoCanvas', () => {
-  test('canvas element exists', async ({ page }) => {
+test.describe('SplitViewCanvas', () => {
+  test('both canvas elements exist', async ({ page }) => {
     await page.goto('/');
-    const canvas = page.locator('canvas');
-    await expect(canvas).toBeVisible();
+    const canvases = page.locator('canvas');
+    await expect(canvases).toHaveCount(2);
+    await expect(canvases.first()).toBeVisible();
+    await expect(canvases.nth(1)).toBeVisible();
   });
 
-  test('canvas has expected dimensions', async ({ page }) => {
+  test('canvases have expected dimensions', async ({ page }) => {
     await page.goto('/');
-    const canvas = page.locator('canvas');
-    const box = await canvas.boundingBox();
-    expect(box?.width).toBeGreaterThan(0);
-    expect(box?.height).toBeGreaterThan(0);
+    const canvases = page.locator('canvas');
+
+    // Check neurotypical canvas (left)
+    const leftBox = await canvases.first().boundingBox();
+    expect(leftBox?.width).toBeGreaterThan(0);
+    expect(leftBox?.height).toBeGreaterThan(0);
+
+    // Check current view canvas (right)
+    const rightBox = await canvases.nth(1).boundingBox();
+    expect(rightBox?.width).toBeGreaterThan(0);
+    expect(rightBox?.height).toBeGreaterThan(0);
+  });
+
+  test('shows neurotypical and current view labels', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.getByText('Neurotypical View')).toBeVisible();
+    await expect(page.getByText('Your Current View')).toBeVisible();
   });
 });
