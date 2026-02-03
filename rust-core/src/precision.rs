@@ -2,12 +2,16 @@
 //!
 //! Maps user-facing slider values (0-100) to internal precision parameters.
 
+use wasm_bindgen::prelude::*;
+
 /// Converts a slider value (0-100) to internal precision (0.0-1.0).
+/// Exported to JavaScript/WASM.
 ///
 /// Uses a cubic curve for non-linear scaling:
 /// - 0-70: "neurotypical range" — stable, filtered
 /// - 70-90: "elevated" — noticeably reactive
 /// - 90-100: "overload" — rapid destabilization
+#[wasm_bindgen]
 pub fn slider_to_precision(slider_value: u8) -> f32 {
     let normalized = slider_value as f32 / 100.0;
     let precision = normalized * normalized * normalized;
