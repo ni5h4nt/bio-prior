@@ -17,6 +17,7 @@ pub fn slider_to_precision(slider_value: u8) -> f32 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use proptest::prelude::*;
 
     #[test]
     fn slider_zero_returns_zero_precision() {
@@ -48,6 +49,22 @@ mod tests {
             let current = slider_to_precision(i);
             assert!(current >= prev, "precision should increase: {} -> {}", prev, current);
             prev = current;
+        }
+    }
+
+    proptest! {
+        #[test]
+        fn precision_always_in_valid_range(slider in 0u8..=100) {
+            let precision = slider_to_precision(slider);
+            prop_assert!(precision >= 0.0);
+            prop_assert!(precision <= 1.0);
+        }
+
+        #[test]
+        fn precision_is_deterministic(slider in 0u8..=100) {
+            let p1 = slider_to_precision(slider);
+            let p2 = slider_to_precision(slider);
+            prop_assert_eq!(p1, p2);
         }
     }
 }
