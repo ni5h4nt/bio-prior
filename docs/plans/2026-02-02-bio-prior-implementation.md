@@ -505,29 +505,69 @@ git commit -m "chore: add Playwright E2E testing infrastructure"
 - Create: `frontend/static/assets/classroom.mp4`
 - Create: `frontend/static/assets/classroom.wav` (optional, if separating audio)
 
-**Step 1: Find a properly licensed video**
+**Scene Choice: Classroom (v1)**
+
+Why classroom:
+- Universal—every parent/educator connects immediately
+- "This is where my child spends 6 hours" hits hard
+- Rich but contained sensory environment
+- High emotional stakes
+
+**What to look for in the video:**
+
+| Element | Why It Matters | Example |
+|---------|----------------|---------|
+| Students at desks | Movement that becomes distracting | Fidgeting, writing, shifting |
+| Fluorescent lights | Subtle flicker amplifies at high precision | Overhead panel lighting |
+| Background audio layers | Multiple sounds to separate/amplify | Pencils, whispers, HVAC, clock |
+| Teacher presence | Adds unpredictability | Speaking, moving around |
+| Clock visible | Iconic classroom element + ticking sound | Wall clock |
+| Some window light | Outdoor sounds bleeding in | Birds, traffic, playground |
+
+**Step 1: Search for properly licensed video**
 
 Option A - Pexels (Recommended):
 ```bash
-# Visit https://www.pexels.com/search/videos/classroom/
-# Download a 720p video with ambient classroom activity
-# Look for: movement, natural lighting, background sounds
+# Visit and search:
+# https://www.pexels.com/search/videos/classroom%20students/
+# https://www.pexels.com/search/videos/school%20classroom/
+# https://www.pexels.com/search/videos/elementary%20school/
+
+# Look for: 720p+, 30+ seconds, students visible, ambient audio
 ```
 
-Option B - Creative Commons YouTube:
+Option B - Pixabay:
 ```bash
-# Search with CC filter
-yt-dlp --flat-playlist "ytsearch5:classroom ambience" --match-filter "license=creativeCommon"
+# Visit and search:
+# https://pixabay.com/videos/search/classroom/
+# https://pixabay.com/videos/search/elementary%20school/
+# https://pixabay.com/videos/search/students%20desk/
 
-# Or manually find CC-licensed content and download
+# All content royalty-free, no attribution required
+```
+
+Option C - Creative Commons YouTube:
+```bash
+# Search terms that work well:
+# "classroom ambience ASMR"
+# "classroom background noise study"
+# "school classroom ambient sounds"
+# "elementary classroom atmosphere"
+
+# Filter by Creative Commons license in YouTube search
+# Or find CC-licensed and download:
 yt-dlp -f "bestvideo[height<=720]+bestaudio" -o "classroom_raw.%(ext)s" "VIDEO_URL"
 ```
 
-Option C - Pixabay:
-```bash
-# Visit https://pixabay.com/videos/search/classroom/
-# All content is royalty-free, no attribution required
-```
+**Step 1b: Verify video has required elements**
+
+Before downloading, confirm:
+- [ ] Students/people visible (not empty room)
+- [ ] Some movement happening (not static shot)
+- [ ] Audio track exists with ambient sounds
+- [ ] At least 30 seconds of usable footage
+- [ ] Decent quality (720p minimum)
+- [ ] License allows redistribution
 
 **Step 2: Create assets directory**
 
