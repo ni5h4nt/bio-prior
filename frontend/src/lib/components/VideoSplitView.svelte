@@ -52,19 +52,23 @@
   }
 
   function updateShake() {
-    if (shakeIntensity > 0) {
-      const time = Date.now() / 50;
-      shakeX = Math.sin(time) * shakeIntensity;
-      shakeY = Math.cos(time * 1.3) * shakeIntensity * 0.7;
-    } else {
-      shakeX = 0;
-      shakeY = 0;
-    }
+    const time = Date.now() / 50;
+    shakeX = Math.sin(time) * shakeIntensity;
+    shakeY = Math.cos(time * 1.3) * shakeIntensity * 0.7;
     animationFrame = requestAnimationFrame(updateShake);
   }
 
-  onMount(() => {
+  // Only run animation loop when shake is active
+  $: if (shakeIntensity > 0 && !animationFrame) {
     updateShake();
+  } else if (shakeIntensity === 0 && animationFrame) {
+    cancelAnimationFrame(animationFrame);
+    animationFrame = 0;
+    shakeX = 0;
+    shakeY = 0;
+  }
+
+  onMount(() => {
     return () => {
       if (animationFrame) {
         cancelAnimationFrame(animationFrame);
