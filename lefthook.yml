@@ -1,0 +1,32 @@
+# Lefthook configuration for bio-prior
+# https://github.com/evilmartians/lefthook
+
+pre-commit:
+  parallel: true
+  commands:
+    # ===== Rust Core =====
+    rust-format:
+      glob: "rust-core/**/*.rs"
+      run: cd rust-core && cargo fmt --check
+
+    rust-lint:
+      glob: "rust-core/**/*.rs"
+      run: cd rust-core && cargo clippy -- -D warnings
+
+    # ===== Svelte Frontend =====
+    frontend-check:
+      glob: "frontend/**/*.{ts,svelte}"
+      run: cd frontend && npm run check
+
+pre-push:
+  parallel: true
+  commands:
+    # ===== Rust Tests =====
+    rust-test:
+      glob: "rust-core/**/*.rs"
+      run: cd rust-core && cargo test --quiet
+
+    # ===== Frontend Build =====
+    frontend-build:
+      glob: "frontend/**/*.{ts,svelte}"
+      run: cd frontend && npm run build

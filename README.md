@@ -171,6 +171,17 @@ bio-prior/
 | **Desktop** | Tauri v2 | Native performance, small footprint |
 | **Testing** | Playwright | Real browser E2E tests |
 
+### Setup Git Hooks
+
+```bash
+# Install lefthook (https://github.com/evilmartians/lefthook)
+# macOS: brew install lefthook
+# Linux: curl -1sLf 'https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.deb.sh' | sudo -E bash && sudo apt install lefthook
+
+# Install hooks
+lefthook install
+```
+
 ### Running Tests
 
 ```bash
