@@ -1,20 +1,21 @@
 {
-  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "$schema": "https://schema.tauri.app/config/2",
   "productName": "bio-prior",
   "version": "0.1.0",
-  "identifier": "com.bio-prior.app",
+  "identifier": "com.bioprior.app",
   "build": {
-    "frontendDist": "../dist",
-    "devUrl": "http://localhost:5173",
     "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build"
+    "devUrl": "http://localhost:5173",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
   },
   "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
         "title": "bio-prior",
-        "width": 800,
-        "height": 600,
+        "width": 900,
+        "height": 700,
         "resizable": true,
         "fullscreen": false
       }
