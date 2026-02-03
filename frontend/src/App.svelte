@@ -144,6 +144,7 @@
             scene={currentScene}
             precision={effectivePrecision}
             {shakeIntensity}
+            on:error={() => { currentScene = 'abstract'; }}
           />
         {/if}
 

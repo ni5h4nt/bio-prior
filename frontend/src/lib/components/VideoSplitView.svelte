@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher<{
+    error: { message: string };
+  }>();
 
   export let scene: string = 'classroom';
   export let precision: number = 20;
@@ -10,6 +14,7 @@
   let animationFrame: number;
   let shakeX = 0;
   let shakeY = 0;
+  let videoError = false;
 
   const sceneVideos: Record<string, string> = {
     classroom: '/videos/classroom.mp4',
@@ -69,8 +74,16 @@
 
   function handleVideoError(event: Event) {
     console.error('Video load error:', event);
+    videoError = true;
+    dispatch('error', { message: 'Video failed to load' });
   }
 </script>
+
+{#if videoError}
+  <div class="error-fallback">
+    <p>⚠️ Video unavailable. Switching to abstract mode...</p>
+  </div>
+{/if}
 
 <div class="split-view">
   <div class="view-panel neurotypical">
@@ -143,6 +156,21 @@
 </div>
 
 <style>
+  .error-fallback {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .error-fallback p {
+    margin: 0;
+    color: #991b1b;
+    font-size: 0.9rem;
+  }
+
   .split-view {
     display: flex;
     align-items: stretch;
