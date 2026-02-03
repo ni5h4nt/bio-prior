@@ -1,15 +1,32 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import PrecisionSlider from './lib/components/PrecisionSlider.svelte';
   import LoadGauge from './lib/components/LoadGauge.svelte';
   import RegulationPanel from './lib/components/RegulationPanel.svelte';
   import VideoCanvas from './lib/components/VideoCanvas.svelte';
+  import { initWasm, sliderToPrecision } from './lib/wasm';
 
   let precision = 20;
   let activeStrategy: string | null = null;
+  let wasmReady = false;
+  let error: string | null = null;
 
-  // Calculations matching Rust logic
-  $: normalizedPrecision = precision / 100;
-  $: cpuCost = 0.1 + normalizedPrecision ** 2 * 0.9;
+  onMount(async () => {
+    try {
+      await initWasm();
+      wasmReady = true;
+    } catch (e) {
+      error = `Failed to load WASM: ${e}`;
+      console.error(error);
+    }
+  });
+
+  // Use WASM for precision calculation when available
+  $: internalPrecision = wasmReady
+    ? sliderToPrecision(precision)
+    : (precision / 100) ** 3;
+
+  $: cpuCost = 0.1 + internalPrecision ** 2 * 0.9;
   $: showRegulation = precision >= 70;
 
   // Shake only above 70%
@@ -31,20 +48,31 @@
 
 <main>
   <h1>bio-prior</h1>
-  <VideoCanvas
-    {precision}
-    shakeX={shakeX}
-    shakeY={shakeY}
-    {noiseIntensity}
-  />
-  <PrecisionSlider bind:value={precision} />
-  <LoadGauge value={cpuCost} />
-  <RegulationPanel
-    visible={showRegulation}
-    {activeStrategy}
-    on:activate={handleActivate}
-    on:deactivate={handleDeactivate}
-  />
+
+  {#if error}
+    <div class="error">{error}</div>
+  {/if}
+
+  {#if !wasmReady}
+    <div class="loading">Loading simulation engine...</div>
+  {:else}
+    <div data-testid="app-ready">
+      <VideoCanvas
+        {precision}
+        shakeX={shakeX}
+        shakeY={shakeY}
+        {noiseIntensity}
+      />
+      <PrecisionSlider bind:value={precision} />
+      <LoadGauge value={cpuCost} />
+      <RegulationPanel
+        visible={showRegulation}
+        {activeStrategy}
+        on:activate={handleActivate}
+        on:deactivate={handleDeactivate}
+      />
+    </div>
+  {/if}
 </main>
 
 <style>
@@ -57,5 +85,19 @@
   h1 {
     text-align: center;
     margin-bottom: 2rem;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+  }
+
+  .error {
+    background: #ffebee;
+    color: #c62828;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
   }
 </style>
