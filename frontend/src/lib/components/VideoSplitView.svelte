@@ -14,7 +14,6 @@
   let animationFrame: number;
   let shakeX = 0;
   let shakeY = 0;
-  let videoError = false;
 
   const sceneVideos: Record<string, string> = {
     classroom: '/videos/classroom.mp4',
@@ -78,7 +77,6 @@
 
   function handleVideoError(event: Event) {
     console.error('Video load error:', event);
-    videoError = true;
     dispatch('error', { message: 'Video failed to load' });
   }
 </script>

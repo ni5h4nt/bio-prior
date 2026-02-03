@@ -7,7 +7,6 @@
   import VideoSplitView from './lib/components/VideoSplitView.svelte';
   import AboutModal from './lib/components/AboutModal.svelte';
   import SceneSelector from './lib/components/SceneSelector.svelte';
-  import AudioProcessor from './lib/components/AudioProcessor.svelte';
   import { initWasm, sliderToPrecision } from './lib/wasm';
 
   let precision = 20;
@@ -16,7 +15,6 @@
   let error: string | null = null;
   let showAbout = false;
   let currentScene = 'abstract';
-  let audioEnabled = false;
 
   onMount(async () => {
     try {
@@ -123,12 +121,7 @@
       <div class="scene-selector-row">
         <SceneSelector value={currentScene} on:change={handleSceneChange} />
         {#if currentScene !== 'abstract'}
-          <AudioProcessor
-            scene={currentScene}
-            precision={effectivePrecision}
-            regulationActive={activeStrategy !== null}
-            bind:enabled={audioEnabled}
-          />
+          <span class="audio-coming-soon">🔊 Audio Coming Soon</span>
         {/if}
       </div>
 
@@ -302,6 +295,19 @@
     justify-content: center;
     gap: 1rem;
     margin-bottom: 1rem;
+  }
+
+  .audio-coming-soon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #9ca3af;
+    background: #f3f4f6;
+    border: 1px dashed #d1d5db;
+    border-radius: 0.5rem;
   }
 
   .simulation-area {

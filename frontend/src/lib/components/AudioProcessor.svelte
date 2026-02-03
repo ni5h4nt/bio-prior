@@ -1,33 +1,17 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
 
-  export let scene: string = 'classroom';
   export let precision: number = 20;
   export let enabled: boolean = false;
   export let regulationActive: boolean = false;
+  export let videoElement: HTMLVideoElement | null = null;
 
   let audioContext: AudioContext | null = null;
-  let baseSource: MediaElementAudioSourceNode | null = null;
+  let sourceNode: MediaElementAudioSourceNode | null = null;
   let compressor: DynamicsCompressorNode | null = null;
   let highShelf: BiquadFilterNode | null = null;
   let gainNode: GainNode | null = null;
-  let audioElement: HTMLAudioElement | null = null;
-  let isPlaying = false;
-
-  const sceneAudio: Record<string, { base: string; highlights: string[] }> = {
-    classroom: {
-      base: '/audio/classroom-ambient.mp3',
-      highlights: ['/audio/clock-tick.mp3', '/audio/pencil-scratch.mp3'],
-    },
-    grocery: {
-      base: '/audio/grocery-ambient.mp3',
-      highlights: ['/audio/cart-wheels.mp3', '/audio/checkout-beep.mp3'],
-    },
-    playground: {
-      base: '/audio/playground-ambient.mp3',
-      highlights: ['/audio/kids-shouting.mp3', '/audio/swing-creak.mp3'],
-    },
-  };
+  let isInitialized = false;
 
   // Audio effect calculations based on precision
   $: intensity = precision / 100;
@@ -45,30 +29,30 @@
     gainNode.gain.value = enabled ? masterGain : 0;
   }
 
+  // Unmute/mute video when enabled changes
+  $: if (videoElement) {
+    videoElement.muted = !enabled;
+  }
+
   async function initAudio() {
-    if (audioContext) return;
+    if (isInitialized || !videoElement) return;
 
     audioContext = new AudioContext();
 
-    // Create audio element
-    audioElement = new Audio(sceneAudio[scene]?.base || sceneAudio.classroom.base);
-    audioElement.loop = true;
-    audioElement.crossOrigin = 'anonymous';
-
-    // Create nodes
-    baseSource = audioContext.createMediaElementSource(audioElement);
+    // Use the video element as the audio source
+    sourceNode = audioContext.createMediaElementSource(videoElement);
     compressor = audioContext.createDynamicsCompressor();
     highShelf = audioContext.createBiquadFilter();
     gainNode = audioContext.createGain();
 
-    // Configure compressor
+    // Configure compressor (makes quiet sounds louder, loud sounds quieter)
     compressor.threshold.value = compressionThreshold;
     compressor.knee.value = 10;
     compressor.ratio.value = compressionRatio;
     compressor.attack.value = 0.003;
     compressor.release.value = 0.25;
 
-    // Configure high shelf filter (boost high frequencies)
+    // Configure high shelf filter (boost high frequencies - sensory sensitivity)
     highShelf.type = 'highshelf';
     highShelf.frequency.value = 3000;
     highShelf.gain.value = highShelfGain;
@@ -76,59 +60,41 @@
     // Configure gain
     gainNode.gain.value = masterGain;
 
-    // Connect chain: source -> compressor -> highShelf -> gain -> destination
-    baseSource.connect(compressor);
+    // Connect chain: video -> compressor -> highShelf -> gain -> destination
+    sourceNode.connect(compressor);
     compressor.connect(highShelf);
     highShelf.connect(gainNode);
     gainNode.connect(audioContext.destination);
+
+    isInitialized = true;
   }
 
   async function toggleAudio() {
+    if (!videoElement) return;
+
     if (!enabled) {
-      // Set enabled first for UI responsiveness
       enabled = true;
       try {
         await initAudio();
         if (audioContext?.state === 'suspended') {
           await audioContext.resume();
         }
-        if (audioElement) {
-          await audioElement.play();
-          isPlaying = true;
-        }
+        videoElement.muted = false;
       } catch (e) {
-        // Audio may fail due to browser autoplay policy - UI still updates
-        console.warn('Audio playback failed:', e);
+        console.warn('Audio initialization failed:', e);
       }
     } else {
       enabled = false;
-      if (audioElement) {
-        audioElement.pause();
-        isPlaying = false;
-      }
-    }
-  }
-
-  // Handle scene changes
-  $: if (audioElement && scene) {
-    const newSrc = sceneAudio[scene]?.base;
-    if (newSrc && audioElement.src !== newSrc) {
-      audioElement.src = newSrc;
-      if (isPlaying) {
-        audioElement.play();
-      }
+      videoElement.muted = true;
     }
   }
 
   onDestroy(() => {
-    if (audioElement) {
-      audioElement.pause();
-      audioElement = null;
-    }
     if (audioContext) {
       audioContext.close();
       audioContext = null;
     }
+    isInitialized = false;
   });
 </script>
 
