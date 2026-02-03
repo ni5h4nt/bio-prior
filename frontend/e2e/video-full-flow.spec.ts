@@ -15,10 +15,8 @@ test.describe('Video Mode Full Flow', () => {
     await selector.selectOption('classroom');
     await expect(page.locator('video')).toHaveCount(2);
 
-    // Enable audio
-    const audioButton = page.getByRole('button', { name: /enable audio/i });
-    await audioButton.click();
-    await expect(page.getByRole('button', { name: /audio on|mute/i })).toBeVisible();
+    // Audio coming soon badge should be visible
+    await expect(page.getByText(/audio coming soon/i)).toBeVisible();
 
     // Increase precision to trigger regulation panel
     const slider = page.getByRole('slider', { name: /sensory detail/i });
