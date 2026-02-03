@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 description = "Predictive coding inference engine for sensory processing simulation"
 license = "MIT"
+repository = "https://github.com/nishanttyagi/bio-prior"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
