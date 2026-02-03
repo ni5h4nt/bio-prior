@@ -7,6 +7,7 @@
   import VideoSplitView from './lib/components/VideoSplitView.svelte';
   import AboutModal from './lib/components/AboutModal.svelte';
   import SceneSelector from './lib/components/SceneSelector.svelte';
+  import AudioProcessor from './lib/components/AudioProcessor.svelte';
   import { initWasm, sliderToPrecision } from './lib/wasm';
 
   let precision = 20;
@@ -15,6 +16,7 @@
   let error: string | null = null;
   let showAbout = false;
   let currentScene = 'abstract';
+  let audioEnabled = false;
 
   onMount(async () => {
     try {
@@ -120,6 +122,13 @@
 
       <div class="scene-selector-row">
         <SceneSelector value={currentScene} on:change={handleSceneChange} />
+        {#if currentScene !== 'abstract'}
+          <AudioProcessor
+            scene={currentScene}
+            precision={effectivePrecision}
+            bind:enabled={audioEnabled}
+          />
+        {/if}
       </div>
 
       <div class="simulation-area" data-testid="app-ready">

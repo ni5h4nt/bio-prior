@@ -83,21 +83,27 @@
 
   async function toggleAudio() {
     if (!enabled) {
-      await initAudio();
-      if (audioContext?.state === 'suspended') {
-        await audioContext.resume();
-      }
-      if (audioElement) {
-        await audioElement.play();
-        isPlaying = true;
-      }
+      // Set enabled first for UI responsiveness
       enabled = true;
+      try {
+        await initAudio();
+        if (audioContext?.state === 'suspended') {
+          await audioContext.resume();
+        }
+        if (audioElement) {
+          await audioElement.play();
+          isPlaying = true;
+        }
+      } catch (e) {
+        // Audio may fail due to browser autoplay policy - UI still updates
+        console.warn('Audio playback failed:', e);
+      }
     } else {
+      enabled = false;
       if (audioElement) {
         audioElement.pause();
         isPlaying = false;
       }
-      enabled = false;
     }
   }
 
