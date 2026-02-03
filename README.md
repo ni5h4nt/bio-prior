@@ -95,9 +95,19 @@ Self-regulation strategies (often called "stimming") aren't misbehavior — they
 ### Try It Now (Web)
 
 **Prerequisites:**
-- [Rust](https://rustup.rs/)
-- [Node.js 18+](https://nodejs.org/)
-- [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/) — install with `cargo install wasm-pack`
+
+```bash
+# Install Rust (if not already installed)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source ~/.cargo/env
+
+# Install wasm-pack
+cargo install wasm-pack
+
+# Install Node.js 18+ from https://nodejs.org or use nvm/fnm
+```
+
+**Run the simulation:**
 
 ```bash
 # Clone the repo
