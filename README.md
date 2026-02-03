@@ -37,12 +37,19 @@ When a child covers their ears, rocks, or needs to leave the room — they're no
 
 ## The Experience
 
+### Choose Your Scene
+Switch between **Abstract** mode and real-world video scenes:
+- 🏫 **Classroom** — Kids raising hands, visual movement
+- 🛒 **Grocery Store** — Crowded aisles, sensory chaos
+- 🎠 **Playground** — Children playing, unpredictable motion
+
 ### Starting Point: Neurotypical Mode (0-70%)
 The simulation begins here. Background noise fades away. The brain efficiently filters out unimportant details. This is how most people experience a classroom, grocery store, or birthday party.
 
 ### Heightened Awareness (70-90%)
 As you increase the slider, notice how:
 - Visual noise begins to appear
+- Colors become oversaturated
 - Every detail demands attention
 - The "Processing Load" meter climbs
 
@@ -50,6 +57,7 @@ As you increase the slider, notice how:
 At maximum precision:
 - The display shakes (visual overstimulation)
 - Processing load becomes critical
+- Red vignette indicates system stress
 - **Self-regulation options appear** — these represent the strategies autistic individuals use to cope
 
 ---
@@ -129,7 +137,15 @@ bio-prior/
 ├── frontend/               # Svelte 5 UI
 │   ├── src/
 │   │   ├── App.svelte      # Main application
-│   │   └── lib/components/ # UI components
+│   │   └── lib/components/
+│   │       ├── SplitViewCanvas.svelte  # Abstract visualization
+│   │       ├── VideoSplitView.svelte   # Real-world video scenes
+│   │       ├── SceneSelector.svelte    # Scene dropdown
+│   │       ├── PrecisionSlider.svelte  # Sensory detail control
+│   │       ├── LoadGauge.svelte        # Processing load meter
+│   │       ├── RegulationPanel.svelte  # Self-regulation strategies
+│   │       └── AboutDrawer.svelte      # Learn the science panel
+│   ├── public/videos/      # Scene video assets
 │   └── e2e/                # Playwright tests
 │
 └── docs/plans/             # Design documentation
@@ -172,8 +188,10 @@ This project uses "autistic" and "autism" rather than only clinical terms like "
 
 ## Roadmap
 
-- [ ] Video integration with real classroom scenes
-- [ ] Additional scenarios (grocery store, playground)
+- [x] Video integration with real-world scenes
+- [x] Additional scenarios (classroom, grocery store, playground)
+- [x] Slide-out "Learn the Science" drawer
+- [ ] Audio processing (sensory amplification simulation)
 - [ ] More regulation strategies (deep pressure, focus object)
 - [ ] Session recording for educators
 - [ ] Research export tools
