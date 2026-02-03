@@ -10,13 +10,12 @@ test.describe('SceneSelector', () => {
 
   test('shows all scene options', async ({ page }) => {
     await page.goto('/');
-    const selector = page.getByRole('combobox', { name: /scene/i });
-    await selector.click();
 
-    await expect(page.getByRole('option', { name: /abstract/i })).toBeVisible();
-    await expect(page.getByRole('option', { name: /classroom/i })).toBeVisible();
-    await expect(page.getByRole('option', { name: /grocery/i })).toBeVisible();
-    await expect(page.getByRole('option', { name: /playground/i })).toBeVisible();
+    // Native select options are not visible in DOM sense, check they exist
+    await expect(page.getByRole('option', { name: /abstract/i })).toHaveCount(1);
+    await expect(page.getByRole('option', { name: /classroom/i })).toHaveCount(1);
+    await expect(page.getByRole('option', { name: /grocery/i })).toHaveCount(1);
+    await expect(page.getByRole('option', { name: /playground/i })).toHaveCount(1);
   });
 
   test('switching scene dispatches change event', async ({ page }) => {

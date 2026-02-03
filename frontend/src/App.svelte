@@ -5,6 +5,7 @@
   import RegulationPanel from './lib/components/RegulationPanel.svelte';
   import SplitViewCanvas from './lib/components/SplitViewCanvas.svelte';
   import AboutModal from './lib/components/AboutModal.svelte';
+  import SceneSelector from './lib/components/SceneSelector.svelte';
   import { initWasm, sliderToPrecision } from './lib/wasm';
 
   let precision = 20;
@@ -12,6 +13,7 @@
   let wasmReady = false;
   let error: string | null = null;
   let showAbout = false;
+  let currentScene = 'abstract';
 
   onMount(async () => {
     try {
@@ -76,6 +78,10 @@
   function handleDeactivate() {
     activeStrategy = null;
   }
+
+  function handleSceneChange(event: CustomEvent<{ scene: string }>) {
+    currentScene = event.detail.scene;
+  }
 </script>
 
 <div class="app-container">
@@ -109,6 +115,10 @@
           <strong>Try it:</strong> Drag the slider to the right to experience how some autistic individuals
           perceive the world — where every detail demands attention and the brain works overtime to process it all.
         </p>
+      </div>
+
+      <div class="scene-selector-row">
+        <SceneSelector value={currentScene} on:change={handleSceneChange} />
       </div>
 
       <div class="simulation-area" data-testid="app-ready">
@@ -265,6 +275,10 @@
 
   .intro-card strong {
     color: #1e3a8a;
+  }
+
+  .scene-selector-row {
+    margin-bottom: 1rem;
   }
 
   .simulation-area {
