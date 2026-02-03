@@ -23,8 +23,79 @@ pub struct ProcessedFrame {
 }
 
 /// Process a video frame with precision-weighted effects
-pub fn process_frame(pixels: &[u8], width: u32, height: u32, precision: f32) -> ProcessedFrame {
-    todo!("implement")
+pub fn process_frame(pixels: &[u8], _width: u32, _height: u32, precision: f32) -> ProcessedFrame {
+    let precision_clamped = precision.clamp(0.0, 1.0);
+
+    // Apply saturation boost based on precision
+    let processed_pixels = apply_saturation_boost(pixels, precision_clamped);
+
+    // Calculate metrics
+    let cpu_cost = calculate_cpu_cost(precision_clamped);
+    let (shake_x, shake_y) = calculate_shake(precision_clamped);
+    let noise_intensity = calculate_noise_intensity(precision_clamped);
+
+    ProcessedFrame {
+        pixels: processed_pixels,
+        cpu_cost,
+        shake_x,
+        shake_y,
+        noise_intensity,
+    }
+}
+
+fn apply_saturation_boost(pixels: &[u8], precision: f32) -> Vec<u8> {
+    let boost = 1.0 + precision * 0.5; // Up to 50% saturation increase
+
+    pixels
+        .chunks(4)
+        .flat_map(|rgba| {
+            let r = rgba[0] as f32;
+            let g = rgba[1] as f32;
+            let b = rgba[2] as f32;
+            let a = rgba[3];
+
+            let gray = (r + g + b) / 3.0;
+
+            let new_r = (gray + (r - gray) * boost).clamp(0.0, 255.0) as u8;
+            let new_g = (gray + (g - gray) * boost).clamp(0.0, 255.0) as u8;
+            let new_b = (gray + (b - gray) * boost).clamp(0.0, 255.0) as u8;
+
+            [new_r, new_g, new_b, a]
+        })
+        .collect()
+}
+
+fn calculate_cpu_cost(precision: f32) -> f32 {
+    // Exponential cost curve: low precision = minimal cost
+    // Simulates computational exhaustion at high precision
+    let base_cost = 0.1;
+    let precision_cost = precision * precision * 0.9;
+    (base_cost + precision_cost).min(1.0)
+}
+
+fn calculate_shake(precision: f32) -> (f32, f32) {
+    // Only shake at high precision (threshold at 0.7)
+    if precision < 0.7 {
+        return (0.0, 0.0);
+    }
+
+    let intensity = (precision - 0.7) / 0.3; // Normalize to 0-1 above threshold
+    let max_shake = 5.0; // pixels
+
+    // Deterministic shake based on precision (real impl would use time)
+    let shake_x = intensity * max_shake * (precision * 17.0).sin();
+    let shake_y = intensity * max_shake * (precision * 23.0).cos();
+
+    (shake_x, shake_y)
+}
+
+fn calculate_noise_intensity(precision: f32) -> f32 {
+    // Gradual noise increase, more pronounced above 0.3
+    if precision < 0.3 {
+        0.0
+    } else {
+        ((precision - 0.3) / 0.7).powf(1.5)
+    }
 }
 
 #[cfg(test)]
