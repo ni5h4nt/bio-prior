@@ -37,13 +37,14 @@
       aria-label="Sensory Detail"
       class={zone}
     />
+  </div>
+
+  <div class="stats">
     <div class="value-display {zone}">
       <span class="number">{value}</span>
       <span class="percent">%</span>
     </div>
-  </div>
-
-  <p class="hint">
+    <p class="hint">
     {#if value < 30}
       Filtered perception — background noise fades away
     {:else if value < 70}
@@ -53,7 +54,8 @@
     {:else}
       Sensory flooding — system approaching overload
     {/if}
-  </p>
+    </p>
+  </div>
 </div>
 
 <style>
@@ -63,6 +65,8 @@
     padding: 1.5rem;
     border: 1px solid #e2e8f0;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
   }
 
   .header {
@@ -122,25 +126,35 @@
   }
 
   .zone-markers {
-    display: flex;
-    justify-content: space-between;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    padding: 0 0.5rem;
   }
 
   .marker {
+    position: absolute;
     font-size: 0.7rem;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
-  .marker.calm { color: #059669; }
-  .marker.elevated { color: #d97706; }
-  .marker.overload { color: #dc2626; }
+  .marker.calm {
+    color: #059669;
+    left: 0;
+  }
+
+  .marker.elevated {
+    color: #d97706;
+    left: 70%;
+    transform: translateX(-50%);
+  }
+
+  .marker.overload {
+    color: #dc2626;
+    right: 0;
+  }
 
   input[type='range'] {
     -webkit-appearance: none;
@@ -209,11 +223,14 @@
     75% { transform: translateX(2px); }
   }
 
+  .stats {
+    text-align: center;
+  }
+
   .value-display {
     display: flex;
     justify-content: center;
     align-items: baseline;
-    margin-top: 1rem;
     gap: 0.15rem;
   }
 
@@ -238,9 +255,9 @@
     text-align: center;
     font-size: 0.9rem;
     color: #64748b;
-    margin: 1rem 0 0;
+    margin: 0.5rem 0 0;
     font-style: italic;
-    min-height: 1.5rem;
+    min-height: 2.5rem;
     transition: all 0.3s ease;
   }
 </style>

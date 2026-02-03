@@ -54,6 +54,8 @@
     padding: 1.5rem;
     border: 1px solid #e2e8f0;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
   }
 
   .header {
@@ -114,7 +116,7 @@
 
   .gauge-container {
     position: relative;
-    margin-bottom: 1rem;
+    padding-top: 1.5rem;
   }
 
   .gauge-background {
@@ -222,5 +224,6 @@
     color: #64748b;
     margin: 0.5rem 0 0;
     font-style: italic;
+    min-height: 2.5rem;
   }
 </style>

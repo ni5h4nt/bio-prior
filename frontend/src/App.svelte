@@ -4,7 +4,9 @@
   import LoadGauge from './lib/components/LoadGauge.svelte';
   import RegulationPanel from './lib/components/RegulationPanel.svelte';
   import SplitViewCanvas from './lib/components/SplitViewCanvas.svelte';
-  import AboutModal from './lib/components/AboutModal.svelte';
+  import VideoSplitView from './lib/components/VideoSplitView.svelte';
+  import AboutDrawer from './lib/components/AboutDrawer.svelte';
+  import SceneSelector from './lib/components/SceneSelector.svelte';
   import { initWasm, sliderToPrecision } from './lib/wasm';
 
   let precision = 20;
@@ -12,6 +14,7 @@
   let wasmReady = false;
   let error: string | null = null;
   let showAbout = false;
+  let currentScene = 'abstract';
 
   onMount(async () => {
     try {
@@ -76,6 +79,10 @@
   function handleDeactivate() {
     activeStrategy = null;
   }
+
+  function handleSceneChange(event: CustomEvent<{ scene: string }>) {
+    currentScene = event.detail.scene;
+  }
 </script>
 
 <div class="app-container">
@@ -111,12 +118,27 @@
         </p>
       </div>
 
+      <div class="scene-selector-row">
+        <SceneSelector value={currentScene} on:change={handleSceneChange} />
+        {#if currentScene !== 'abstract'}
+          <span class="audio-coming-soon">🔊 Audio Coming Soon</span>
+        {/if}
+      </div>
+
       <div class="simulation-area" data-testid="app-ready">
-        <SplitViewCanvas
-          precision={effectivePrecision}
-          {shakeIntensity}
-          {noiseIntensity}
-        />
+        {#if currentScene === 'abstract'}
+          <SplitViewCanvas
+            precision={effectivePrecision}
+            {shakeIntensity}
+            {noiseIntensity}
+          />
+        {:else}
+          <VideoSplitView
+            scene={currentScene}
+            precision={effectivePrecision}
+            {shakeIntensity}
+          />
+        {/if}
 
         <div class="controls-grid">
           <PrecisionSlider bind:value={precision} />
@@ -141,7 +163,7 @@
   </main>
 </div>
 
-<AboutModal bind:open={showAbout} />
+<AboutDrawer bind:open={showAbout} />
 
 <style>
   :global(body) {
@@ -265,6 +287,27 @@
 
   .intro-card strong {
     color: #1e3a8a;
+  }
+
+  .scene-selector-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .audio-coming-soon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #9ca3af;
+    background: #f3f4f6;
+    border: 1px dashed #d1d5db;
+    border-radius: 0.5rem;
   }
 
   .simulation-area {
