@@ -5,14 +5,14 @@ test.describe('RegulationPanel', () => {
     await page.goto('/');
     const slider = page.getByRole('slider', { name: /sensory detail/i });
     await slider.fill('30');
-    await expect(page.getByText(/regulation strategies/i)).not.toBeVisible();
+    await expect(page.getByText(/system overwhelmed/i)).not.toBeVisible();
   });
 
   test('panel appears at high precision', async ({ page }) => {
     await page.goto('/');
     const slider = page.getByRole('slider', { name: /sensory detail/i });
     await slider.fill('85');
-    await expect(page.getByText(/regulation strategies/i)).toBeVisible();
+    await expect(page.getByText(/system overwhelmed/i)).toBeVisible();
   });
 
   test('has three strategy buttons', async ({ page }) => {
@@ -21,7 +21,7 @@ test.describe('RegulationPanel', () => {
     await slider.fill('85');
 
     await expect(page.getByRole('button', { name: /reduce input/i })).toBeVisible();
-    await expect(page.getByRole('button', { name: /rhythmic pattern/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /rhythmic motion/i })).toBeVisible();
     await expect(page.getByRole('button', { name: /take a break/i })).toBeVisible();
   });
 
