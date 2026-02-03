@@ -4,6 +4,7 @@
   export let scene: string = 'classroom';
   export let precision: number = 20;
   export let enabled: boolean = false;
+  export let regulationActive: boolean = false;
 
   let audioContext: AudioContext | null = null;
   let baseSource: MediaElementAudioSourceNode | null = null;
@@ -33,7 +34,8 @@
   $: compressionThreshold = -24 + (intensity * 20); // -24 to -4 dB
   $: compressionRatio = 4 + (intensity * 8); // 4:1 to 12:1
   $: highShelfGain = intensity * 12; // 0 to 12 dB boost
-  $: masterGain = 0.3 + (intensity * 0.4); // 0.3 to 0.7
+  $: regulationMultiplier = regulationActive ? 0.5 : 1;
+  $: masterGain = (0.3 + (intensity * 0.4)) * regulationMultiplier; // 0.3 to 0.7, halved when regulated
 
   // Update audio parameters reactively
   $: if (compressor && highShelf && gainNode) {

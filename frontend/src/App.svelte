@@ -126,6 +126,7 @@
           <AudioProcessor
             scene={currentScene}
             precision={effectivePrecision}
+            regulationActive={activeStrategy !== null}
             bind:enabled={audioEnabled}
           />
         {/if}
