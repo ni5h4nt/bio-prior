@@ -126,7 +126,6 @@
   }
 
   .zone-markers {
-    display: flex;
     position: absolute;
     top: 0;
     left: 0;
@@ -134,26 +133,27 @@
   }
 
   .marker {
+    position: absolute;
     font-size: 0.7rem;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    text-align: center;
   }
 
   .marker.calm {
     color: #059669;
-    width: 70%;
+    left: 0;
   }
 
   .marker.elevated {
     color: #d97706;
-    width: 20%;
+    left: 70%;
+    transform: translateX(-50%);
   }
 
   .marker.overload {
     color: #dc2626;
-    width: 10%;
+    right: 0;
   }
 
   input[type='range'] {
