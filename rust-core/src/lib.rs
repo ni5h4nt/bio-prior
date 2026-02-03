@@ -3,6 +3,8 @@
 //! This crate provides the core simulation logic for demonstrating
 //! sensory processing differences and self-regulation strategies.
 
+pub mod precision;
+
 use wasm_bindgen::prelude::*;
 
 /// Initialize panic hook for better error messages in WASM
