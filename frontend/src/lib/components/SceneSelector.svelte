@@ -51,6 +51,7 @@
   select {
     padding: 0.5rem 2rem 0.5rem 0.75rem;
     font-size: 0.875rem;
+    color: #1f2937;
     border: 1px solid #d1d5db;
     border-radius: 0.5rem;
     background: white;
