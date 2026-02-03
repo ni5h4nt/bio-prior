@@ -238,4 +238,50 @@ MIT
 
 ## Contributing
 
-Issues and PRs welcome. Please run tests before submitting.
+Contributions welcome! Here's how to get started:
+
+### Setup
+
+```bash
+# 1. Fork and clone the repo
+git clone https://github.com/YOUR_USERNAME/bio-prior.git
+cd bio-prior
+
+# 2. Install dependencies
+# Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source ~/.cargo/env
+cargo install wasm-pack
+
+# Node.js 18+ (https://nodejs.org)
+
+# 3. Install git hooks
+# macOS: brew install lefthook
+# Linux: curl -1sLf 'https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.deb.sh' | sudo -E bash && sudo apt install lefthook
+lefthook install
+
+# 4. Build and run
+cd rust-core && ./build-wasm.sh
+cd ../frontend && npm install && npm run dev
+```
+
+### Workflow
+
+1. Create a feature branch: `git checkout -b feat/your-feature`
+2. Make your changes
+3. Commit (hooks will run automatically)
+4. Push and open a PR against `main`
+
+### What the hooks check
+
+| Hook | Checks |
+|------|--------|
+| **pre-commit** | `cargo fmt`, `cargo clippy`, `svelte-check` |
+| **pre-push** | `cargo test`, `npm run build` |
+
+### CI Requirements
+
+All PRs must pass:
+- Rust tests and linting
+- Frontend build
+- Playwright E2E tests
