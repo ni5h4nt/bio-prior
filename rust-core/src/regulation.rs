@@ -33,7 +33,40 @@ pub struct RegulationEffect {
 
 /// Calculate regulation effect based on strategy and activation time
 pub fn apply_regulation(strategy: RegulationStrategy, time_active_ms: u32) -> RegulationEffect {
-    todo!("implement")
+    // Normalize time to 0-1 over 3 seconds
+    let time_factor = (time_active_ms as f32 / 3000.0).min(1.0);
+
+    match strategy {
+        RegulationStrategy::ReduceInput => RegulationEffect {
+            // Gradually dim to 30% brightness
+            video_gain: 1.0 - (time_factor * 0.7),
+            // Gradually mute to 20% volume
+            audio_gain: 1.0 - (time_factor * 0.8),
+            pulse_intensity: 0.0,
+            calm_transition: 0.0,
+        },
+
+        RegulationStrategy::RhythmicPattern => {
+            // Pulsing effect based on time (0.5 Hz)
+            let pulse_phase = (time_active_ms as f32 / 2000.0 * std::f32::consts::PI).sin();
+            let pulse = (pulse_phase + 1.0) / 2.0; // Normalize to 0-1
+
+            RegulationEffect {
+                video_gain: 1.0,
+                audio_gain: 1.0,
+                pulse_intensity: pulse * time_factor, // Ramp up pulse intensity
+                calm_transition: 0.0,
+            }
+        }
+
+        RegulationStrategy::TakeABreak => RegulationEffect {
+            // Fade everything to calm
+            video_gain: 1.0 - (time_factor * 0.5),
+            audio_gain: 1.0 - (time_factor * 0.6),
+            pulse_intensity: 0.0,
+            calm_transition: time_factor,
+        },
+    }
 }
 
 #[cfg(test)]
