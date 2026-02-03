@@ -79,12 +79,6 @@
   }
 </script>
 
-{#if videoError}
-  <div class="error-fallback">
-    <p>⚠️ Video unavailable. Switching to abstract mode...</p>
-  </div>
-{/if}
-
 <div class="split-view">
   <div class="view-panel neurotypical">
     <div class="panel-header">
@@ -156,21 +150,6 @@
 </div>
 
 <style>
-  .error-fallback {
-    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-    border: 1px solid #fecaca;
-    border-radius: 12px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  .error-fallback p {
-    margin: 0;
-    color: #991b1b;
-    font-size: 0.9rem;
-  }
-
   .split-view {
     display: flex;
     align-items: stretch;
@@ -244,7 +223,7 @@
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 4/3;
+    aspect-ratio: 340/240;
     object-fit: cover;
     border-radius: 12px;
   }
