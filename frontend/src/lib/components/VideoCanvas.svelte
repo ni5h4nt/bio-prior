@@ -33,16 +33,9 @@
 </script>
 
 <div class="canvas-container">
-  <canvas
-    bind:this={canvas}
-    {width}
-    {height}
-  />
+  <canvas bind:this={canvas} {width} {height} />
   {#if noiseIntensity > 0}
-    <div
-      class="noise-overlay"
-      style="opacity: {noiseIntensity * 0.3}"
-    />
+    <div class="noise-overlay" style="opacity: {noiseIntensity * 0.3}" />
   {/if}
 </div>
 

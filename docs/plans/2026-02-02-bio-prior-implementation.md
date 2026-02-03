@@ -2367,7 +2367,10 @@ cd frontend && npm run build
 ### Task 4.1: Initialize Tauri Project
 
 **Files:**
-- Create: `tauri/` directory structure
+- Create: `frontend/src-tauri/Cargo.toml`
+- Create: `frontend/src-tauri/Cargo.lock`
+- Create: `frontend/src-tauri/build.rs`
+- Create: `frontend/src-tauri/tauri.conf.json`
 
 **Step 1: Install Tauri CLI**
 

@@ -51,7 +51,12 @@ mod tests {
         let mut prev = 0.0;
         for i in 0..=100 {
             let current = slider_to_precision(i);
-            assert!(current >= prev, "precision should increase: {} -> {}", prev, current);
+            assert!(
+                current >= prev,
+                "precision should increase: {} -> {}",
+                prev,
+                current
+            );
             prev = current;
         }
     }

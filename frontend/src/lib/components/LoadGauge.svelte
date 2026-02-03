@@ -9,11 +9,7 @@
 <div class="load-gauge">
   <span class="label">Processing Load</span>
   <div class="bar-container">
-    <div
-      class="bar"
-      class:overloaded={isOverloaded}
-      style="width: {barWidth}"
-    />
+    <div class="bar" class:overloaded={isOverloaded} style="width: {barWidth}" />
   </div>
   <span class="percentage" data-testid="load-value">{percentage}%</span>
 </div>
@@ -42,7 +38,9 @@
   .bar {
     height: 100%;
     background: #4caf50;
-    transition: width 0.1s ease-out, background-color 0.3s;
+    transition:
+      width 0.1s ease-out,
+      background-color 0.3s;
   }
 
   .bar.overloaded {

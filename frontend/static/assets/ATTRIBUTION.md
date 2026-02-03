@@ -10,4 +10,4 @@ Downloaded: [TO BE ADDED - date]
 
 ---
 
-*Note: Update this file when the actual video asset is sourced.*
+_Note: Update this file when the actual video asset is sourced._

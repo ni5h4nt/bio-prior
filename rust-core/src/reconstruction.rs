@@ -3,8 +3,8 @@
 //! Applies precision-weighted transformations to simulate
 //! sensory processing at different gain levels.
 
-use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};
+use wasm_bindgen::prelude::*;
 
 /// Result of processing a frame through the reconstruction pipeline
 #[derive(Debug, Clone, Serialize, Deserialize)]

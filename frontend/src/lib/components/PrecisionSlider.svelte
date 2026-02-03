@@ -35,7 +35,7 @@
     font-weight: 600;
   }
 
-  input[type="range"] {
+  input[type='range'] {
     width: 100%;
     cursor: pointer;
   }
