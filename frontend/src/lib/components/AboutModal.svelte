@@ -13,8 +13,8 @@
 <svelte:window on:keydown={handleKeydown} />
 
 {#if open}
-  <div class="overlay" on:click={close} role="presentation">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" on:click|stopPropagation>
+  <div class="overlay" on:click={close} on:keydown={handleKeydown} role="presentation">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1" on:click|stopPropagation on:keydown|stopPropagation>
       <button class="close" on:click={close} aria-label="Close">×</button>
 
       <h2 id="modal-title">About bio-prior</h2>

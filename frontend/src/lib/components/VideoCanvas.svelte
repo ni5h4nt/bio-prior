@@ -8,6 +8,9 @@
   export let shakeY: number = 0;
   export let noiseIntensity: number = 0;
 
+  // Reserved for future video frame processing
+  $: void precision;
+
   let canvas: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D | null = null;
 
@@ -33,9 +36,9 @@
 </script>
 
 <div class="canvas-container">
-  <canvas bind:this={canvas} {width} {height} />
+  <canvas bind:this={canvas} {width} {height}></canvas>
   {#if noiseIntensity > 0}
-    <div class="noise-overlay" style="opacity: {noiseIntensity * 0.3}" />
+    <div class="noise-overlay" style="opacity: {noiseIntensity * 0.3}"></div>
   {/if}
 </div>
 

@@ -9,7 +9,7 @@
 <div class="load-gauge">
   <span class="label">Processing Load</span>
   <div class="bar-container">
-    <div class="bar" class:overloaded={isOverloaded} style="width: {barWidth}" />
+    <div class="bar" class:overloaded={isOverloaded} style="width: {barWidth}"></div>
   </div>
   <span class="percentage" data-testid="load-value">{percentage}%</span>
 </div>
