@@ -49,7 +49,7 @@ test.describe('Video Mode Full Flow', () => {
     await selector.selectOption('classroom');
 
     // Videos should stack vertically on mobile
-    const splitView = page.locator('.video-split-view');
+    const splitView = page.locator('.split-view');
     const flexDirection = await splitView.evaluate((el) =>
       window.getComputedStyle(el).flexDirection
     );
