@@ -26,6 +26,15 @@
         </p>
       </div>
 
+      <h3>💡 Why "BioPrior"?</h3>
+      <p>
+        In Bayesian neuroscience, a <em>prior</em> is the brain's expectation about what it will
+        perceive — a prediction based on past experience. "Bio" refers to these biological priors
+        encoded in your neural circuits. Normally, priors help filter out unimportant details.
+        This simulation shows what happens when the brain weighs raw sensory input more heavily
+        than its priors — when every detail demands equal attention.
+      </p>
+
       <h3>🧠 The Science: Predictive Coding</h3>
       <p>
         Your brain constantly predicts what it expects to see, hear, and feel. When reality
