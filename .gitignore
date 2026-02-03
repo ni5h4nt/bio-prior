@@ -1,0 +1,35 @@
+# Rust
+/target/
+rust-core/target/
+**/*.rs.bk
+Cargo.lock
+
+# WASM
+rust-core/pkg/
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Tauri
+tauri/target/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Test artifacts
+playwright-report/
+test-results/
+coverage/
