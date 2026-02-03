@@ -5,7 +5,7 @@
   import RegulationPanel from './lib/components/RegulationPanel.svelte';
   import SplitViewCanvas from './lib/components/SplitViewCanvas.svelte';
   import VideoSplitView from './lib/components/VideoSplitView.svelte';
-  import AboutModal from './lib/components/AboutModal.svelte';
+  import AboutDrawer from './lib/components/AboutDrawer.svelte';
   import SceneSelector from './lib/components/SceneSelector.svelte';
   import { initWasm, sliderToPrecision } from './lib/wasm';
 
@@ -163,7 +163,7 @@
   </main>
 </div>
 
-<AboutModal bind:open={showAbout} />
+<AboutDrawer bind:open={showAbout} />
 
 <style>
   :global(body) {
