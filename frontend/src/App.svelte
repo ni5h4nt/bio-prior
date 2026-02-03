@@ -4,6 +4,7 @@
   import LoadGauge from './lib/components/LoadGauge.svelte';
   import RegulationPanel from './lib/components/RegulationPanel.svelte';
   import SplitViewCanvas from './lib/components/SplitViewCanvas.svelte';
+  import VideoSplitView from './lib/components/VideoSplitView.svelte';
   import AboutModal from './lib/components/AboutModal.svelte';
   import SceneSelector from './lib/components/SceneSelector.svelte';
   import { initWasm, sliderToPrecision } from './lib/wasm';
@@ -122,11 +123,19 @@
       </div>
 
       <div class="simulation-area" data-testid="app-ready">
-        <SplitViewCanvas
-          precision={effectivePrecision}
-          {shakeIntensity}
-          {noiseIntensity}
-        />
+        {#if currentScene === 'abstract'}
+          <SplitViewCanvas
+            precision={effectivePrecision}
+            {shakeIntensity}
+            {noiseIntensity}
+          />
+        {:else}
+          <VideoSplitView
+            scene={currentScene}
+            precision={effectivePrecision}
+            {shakeIntensity}
+          />
+        {/if}
 
         <div class="controls-grid">
           <PrecisionSlider bind:value={precision} />
