@@ -37,13 +37,14 @@
       aria-label="Sensory Detail"
       class={zone}
     />
+  </div>
+
+  <div class="stats">
     <div class="value-display {zone}">
       <span class="number">{value}</span>
       <span class="percent">%</span>
     </div>
-  </div>
-
-  <p class="hint">
+    <p class="hint">
     {#if value < 30}
       Filtered perception — background noise fades away
     {:else if value < 70}
@@ -53,7 +54,8 @@
     {:else}
       Sensory flooding — system approaching overload
     {/if}
-  </p>
+    </p>
+  </div>
 </div>
 
 <style>
@@ -221,11 +223,14 @@
     75% { transform: translateX(2px); }
   }
 
+  .stats {
+    text-align: center;
+  }
+
   .value-display {
     display: flex;
     justify-content: center;
     align-items: baseline;
-    margin-top: 1rem;
     gap: 0.15rem;
   }
 
