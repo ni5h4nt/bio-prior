@@ -97,17 +97,18 @@ Self-regulation strategies (often called "stimming") aren't misbehavior — they
 **Prerequisites:**
 - [Rust](https://rustup.rs/)
 - [Node.js 18+](https://nodejs.org/)
-- [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)
+- [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/) — install with `cargo install wasm-pack`
 
 ```bash
-# 1. Build the Rust engine
+# Clone the repo
+git clone https://github.com/ni5h4nt/bio-prior.git
+cd bio-prior
+
+# Build the Rust/WASM engine
 cd rust-core && ./build-wasm.sh
 
-# 2. Install dependencies
-cd ../frontend && npm install
-
-# 3. Start development server
-npm run dev
+# Install frontend dependencies and start dev server
+cd ../frontend && npm install && npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
