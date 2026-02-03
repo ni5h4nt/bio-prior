@@ -4,6 +4,7 @@
 //! sensory processing differences and self-regulation strategies.
 
 pub mod precision;
+pub mod reconstruction;
 
 use wasm_bindgen::prelude::*;
 
