@@ -499,7 +499,90 @@ git commit -m "chore: add Playwright E2E testing infrastructure"
 
 ---
 
-### Task 0.7: Phase 0 Gate
+### Task 0.7: Source Demo Video Asset
+
+**Files:**
+- Create: `frontend/static/assets/classroom.mp4`
+- Create: `frontend/static/assets/classroom.wav` (optional, if separating audio)
+
+**Step 1: Find a properly licensed video**
+
+Option A - Pexels (Recommended):
+```bash
+# Visit https://www.pexels.com/search/videos/classroom/
+# Download a 720p video with ambient classroom activity
+# Look for: movement, natural lighting, background sounds
+```
+
+Option B - Creative Commons YouTube:
+```bash
+# Search with CC filter
+yt-dlp --flat-playlist "ytsearch5:classroom ambience" --match-filter "license=creativeCommon"
+
+# Or manually find CC-licensed content and download
+yt-dlp -f "bestvideo[height<=720]+bestaudio" -o "classroom_raw.%(ext)s" "VIDEO_URL"
+```
+
+Option C - Pixabay:
+```bash
+# Visit https://pixabay.com/videos/search/classroom/
+# All content is royalty-free, no attribution required
+```
+
+**Step 2: Create assets directory**
+
+```bash
+mkdir -p frontend/static/assets
+```
+
+**Step 3: Process video to target format**
+
+```bash
+# Trim to 45 seconds, scale to 720p, optimize for web
+ffmpeg -i classroom_raw.mp4 -t 45 -vf "scale=720:480" -c:v libx264 -crf 23 -c:a aac -b:a 128k frontend/static/assets/classroom.mp4
+
+# Extract audio separately (optional, for Web Audio API processing)
+ffmpeg -i frontend/static/assets/classroom.mp4 -vn -c:a pcm_s16le frontend/static/assets/classroom.wav
+```
+
+**Step 4: Verify files**
+
+```bash
+# Check video properties
+ffprobe frontend/static/assets/classroom.mp4
+
+# Expected: 720x480, ~45 seconds, h264 video, aac audio
+```
+
+**Step 5: Add attribution file (if using CC content)**
+
+Create `frontend/static/assets/ATTRIBUTION.md`:
+
+```markdown
+# Asset Attribution
+
+## classroom.mp4
+
+Source: [Pexels / Pixabay / YouTube URL]
+License: [CC0 / CC-BY / Royalty-Free]
+Creator: [Name if required]
+```
+
+**Step 6: Commit**
+
+```bash
+git add frontend/static/assets/
+git commit -m "asset: add classroom demo video (licensed)"
+```
+
+**Note:** Video files may be large. Consider:
+- Adding `*.mp4` to `.gitignore` and using Git LFS
+- Or keeping video small (<10MB) for direct commits
+- Or hosting video externally and fetching at runtime
+
+---
+
+### Task 0.8: Phase 0 Gate
 
 **Step 1: Run phase gate check**
 
@@ -2778,14 +2861,14 @@ Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
 
 | Phase | Description | Tasks |
 |-------|-------------|-------|
-| 0 | Project Scaffolding & Tooling | 7 |
+| 0 | Project Scaffolding & Tooling | 8 |
 | 1 | Rust Core (TDD) | 9 |
 | 2 | WASM Build | 5 |
 | 3 | Svelte Components (TDD + Playwright) | 6 |
 | 4 | Tauri Desktop | 4 |
 | 5 | Final Integration | 5 |
 
-### Total: ~36 tasks
+### Total: ~37 tasks
 
 ### Key Commands
 
