@@ -5,6 +5,7 @@
 
 pub mod precision;
 pub mod reconstruction;
+pub mod regulation;
 
 use wasm_bindgen::prelude::*;
 
