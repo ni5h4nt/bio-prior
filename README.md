@@ -10,6 +10,12 @@
 
 **bio-prior** is an educational tool that lets you experience — not just read about — how the autistic brain processes sensory information differently.
 
+### Why "BioPrior"?
+
+The name comes from Bayesian neuroscience. In predictive coding theory, your brain doesn't passively receive sensory data—it actively *predicts* what to expect using **priors** (prior beliefs). "Bio" refers to these biological priors encoded in neural circuits.
+
+Research suggests autistic brains may weight sensory evidence more heavily than priors, causing every detail to demand attention equally. BioPrior lets you experience what happens when the brain's precision weighting shifts—when biological priors take a back seat to raw sensory input.
+
 <p align="center">
   <strong>Drag the slider to the right → Watch the world become overwhelming</strong>
 </p>
