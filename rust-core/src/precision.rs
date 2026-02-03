@@ -9,7 +9,9 @@
 /// - 70-90: "elevated" — noticeably reactive
 /// - 90-100: "overload" — rapid destabilization
 pub fn slider_to_precision(slider_value: u8) -> f32 {
-    todo!("implement")
+    let normalized = slider_value as f32 / 100.0;
+    let precision = normalized * normalized * normalized;
+    precision.min(1.0)
 }
 
 #[cfg(test)]
