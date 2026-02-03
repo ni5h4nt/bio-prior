@@ -4,12 +4,14 @@
   import LoadGauge from './lib/components/LoadGauge.svelte';
   import RegulationPanel from './lib/components/RegulationPanel.svelte';
   import VideoCanvas from './lib/components/VideoCanvas.svelte';
+  import AboutModal from './lib/components/AboutModal.svelte';
   import { initWasm, sliderToPrecision } from './lib/wasm';
 
   let precision = 20;
   let activeStrategy: string | null = null;
   let wasmReady = false;
   let error: string | null = null;
+  let showAbout = false;
 
   onMount(async () => {
     try {
@@ -72,8 +74,16 @@
         on:deactivate={handleDeactivate}
       />
     </div>
+
+    <footer>
+      <button class="about-button" on:click={() => showAbout = true}>
+        About this project
+      </button>
+    </footer>
   {/if}
 </main>
+
+<AboutModal bind:open={showAbout} />
 
 <style>
   main {
@@ -99,5 +109,23 @@
     padding: 1rem;
     border-radius: 4px;
     margin-bottom: 1rem;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .about-button {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #666;
+  }
+
+  .about-button:hover {
+    border-color: #999;
   }
 </style>
